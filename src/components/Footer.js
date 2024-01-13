@@ -9,7 +9,7 @@ export default function Footer() {
     <div className="col-md-4 d-flex align-itmes-center">
       <Link to="/" className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
       </Link>
-      <span className = "text-muted">© 2023 Atrangi Swaad, Inc</span>
+      <span className = "text-muted">© 2024 Atrangi Swaad, Inc</span>
     </div>
   </footer>
 

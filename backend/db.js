@@ -1,17 +1,27 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://AtrangiSwaad:AtrangiSwaad@cluster0.emtmhtw.mongodb.net/AtrangiSwaad?retryWrites=true&w=majority';
 
-const connectToMongoDB = async () => {
-    try {
-        await mongoose.connect(mongoURI, { useNewUrlParser: true });
-        console.log('Connected to MongoDB');
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect('mongodb+srv://AtrangiSwaad:AtrangiSwaad@cluster0.emtmhtw.mongodb.net/AtrangiSwaad?retryWrites=true&w=majority', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-        const fetched_data = mongoose.connection.db.collection("food_items");
-        const data = await fetched_data.find({}).toArray();
-        console.log();
-    } catch (err) {
-        console.error('Connection to MongoDB failed', err);
-    }
-};
+    console.log('Connected to MongoDB');
+    
+    const fetched_data = await mongoose.connection.db.collection('food_items');
+    const data = await fetched_data.find({}).toArray();
+
+    const foodCategory = await mongoose.connection.db.collection('food_Category');
+    const catData = await foodCategory.find({}).toArray();
+
+    global.food_items = data;
+    global.food_Category = catData;
+
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    throw error;
+  }
+}
 
 module.exports = connectToMongoDB;
